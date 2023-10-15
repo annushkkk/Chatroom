@@ -1,8 +1,9 @@
-package ru.relex.solution.chatroom.security;
+package ru.relex.solution.chatroom.security.jwt;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jwt.EncryptedJWT;
 import com.nimbusds.jwt.JWTClaimsSet;
+import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import ru.relex.solution.chatroom.service.model.Token;
 import java.util.Date;
 import java.util.function.Function;
 @Setter
+@AllArgsConstructor
 public class TokenCookieJweStringSerializer implements Function<Token,String> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenCookieJweStringSerializer.class);
@@ -25,14 +27,10 @@ public class TokenCookieJweStringSerializer implements Function<Token,String> {
         this.jweEncrypter = jweEncrypter;
     }
 
-    public TokenCookieJweStringSerializer(JWEEncrypter jweEncrypter, JWEAlgorithm jweAlgorithm, EncryptionMethod encryptionMethod) {
-        this.jweEncrypter = jweEncrypter;
-        this.jweAlgorithm = jweAlgorithm;
-        this.encryptionMethod = encryptionMethod;
-    }
 
     @Override
     public String apply(Token token) {
+        LOGGER.info("seriiiiiiiiiiiialiiiize");
         var jwsHeader = new JWEHeader.Builder(this.jweAlgorithm, this.encryptionMethod)
                 .keyID(token.id().toString())
                 .build();

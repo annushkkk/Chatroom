@@ -1,2 +1,23 @@
 jwt:
   cookie-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
+spring:
+  application:
+    name: chatroom-service
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/chatroom}
+    username: ${DB_USERNAME:head}
+    password: ${DB_PASSWORD:456890}
+server:
+  http2:
+    enabled: true
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: springboot
+    keyStoreType: PKCS12
+    keyAlias: tomcat

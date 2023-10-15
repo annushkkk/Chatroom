@@ -22,4 +22,9 @@ public class UserAccountController {
     public DeleteResponse deleteAcc(){
         return service.deleteAcc();
     }
+    @GetMapping
+    public String test(){
+
+        return "eeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+    }
 }
