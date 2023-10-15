@@ -21,5 +21,5 @@ import java.util.UUID;
 public class DeactivatedToken {
     @Id
     private UUID id;
-    private Date cKeepUntil;
+    private Instant cKeepUntil;
 }

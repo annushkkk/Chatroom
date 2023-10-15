@@ -30,7 +30,6 @@ public class TokenCookieJweStringSerializer implements Function<Token,String> {
 
     @Override
     public String apply(Token token) {
-        LOGGER.info("seriiiiiiiiiiiialiiiize");
         var jwsHeader = new JWEHeader.Builder(this.jweAlgorithm, this.encryptionMethod)
                 .keyID(token.id().toString())
                 .build();

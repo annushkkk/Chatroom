@@ -18,9 +18,6 @@ public class TokenCookieFactoryImpl implements TokenCookieFactory{
     private Duration tokenTtl=Duration.ofDays(1);
     @Override
     public Token create(Authentication authentication) {
-        LOGGER.info("factoryyyyyyyyyyyyyy");
-        LOGGER.info(authentication.getName());
-
         var now= Instant.now();
         return new Token(UUID.randomUUID(), authentication.getName(),
                 authentication.getAuthorities().stream()

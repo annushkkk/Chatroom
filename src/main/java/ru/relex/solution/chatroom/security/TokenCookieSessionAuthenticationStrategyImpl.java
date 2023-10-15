@@ -28,7 +28,7 @@ public class TokenCookieSessionAuthenticationStrategyImpl implements SessionAuth
 
     @Override
     public void onAuthentication(Authentication authentication, HttpServletRequest request, HttpServletResponse response) throws SessionAuthenticationException {
-        LOGGER.info("strateeeeeegyyyyyyyyyyyyy");
+
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             var token = this.tokenCookieFactory.create(authentication);
             var tokenString = this.tokenStringSerializer.apply(token);
@@ -38,9 +38,6 @@ public class TokenCookieSessionAuthenticationStrategyImpl implements SessionAuth
             cookie.setSecure(true);
             cookie.setHttpOnly(true);
             cookie.setMaxAge((int) ChronoUnit.SECONDS.between(Instant.now(), token.expiresAt()));
-            LOGGER.info("COOOOOOOOkie made");
-            LOGGER.info(authentication.toString());
-            LOGGER.info(tokenString);
             response.addCookie(cookie);
         }
     }

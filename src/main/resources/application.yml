@@ -21,3 +21,7 @@ server:
     key-store-password: springboot
     keyStoreType: PKCS12
     keyAlias: tomcat
+
+logging:
+  level:
+    org.springframework.security: TRACE

@@ -1,6 +1,7 @@
 package ru.relex.solution.chatroom.service.model;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

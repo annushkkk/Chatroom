@@ -7,4 +7,5 @@ import ru.relex.solution.chatroom.persistence.entity.UserAccount;
 import java.util.UUID;
 
 public interface DeactivatedTokenRepository extends JpaRepository<DeactivatedToken, UUID> {
+
 }
