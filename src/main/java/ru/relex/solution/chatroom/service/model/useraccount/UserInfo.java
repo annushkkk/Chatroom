@@ -1,4 +1,4 @@
-package ru.relex.solution.chatroom.service.model;
+package ru.relex.solution.chatroom.service.model.useraccount;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -17,10 +17,8 @@ public class UserInfo {
     private UUID id;
     @NotNull
     @Email
-    @EmailUnique
     private String email;
     @NotNull
-    @NicknameUnique
     private String nickname;
     private String firstName;
     private String lastName;

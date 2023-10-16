@@ -10,4 +10,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> 
     UserAccount getByNickname(String nickname);
     boolean existsByNickname(String nickname);
     UserAccount getById(UUID uuid);
+    UserAccount getByEmail(String email);
+    boolean deleteByNickname(String nickname);
 }

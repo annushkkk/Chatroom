@@ -1,4 +1,4 @@
-package ru.relex.solution.chatroom.service.model;
+package ru.relex.solution.chatroom.service.model.useraccount;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

@@ -8,7 +8,7 @@ import ru.relex.solution.chatroom.persistence.entity.UserAccount;
 import ru.relex.solution.chatroom.persistence.repository.VerificationTokenRepository;
 import ru.relex.solution.chatroom.service.logic.VerificationTokenService;
 import ru.relex.solution.chatroom.service.mapper.VerificationTokenMapper;
-import ru.relex.solution.chatroom.service.model.VerificationResponse;
+import ru.relex.solution.chatroom.service.model.useraccount.VerificationResponse;
 
 @Service
 @RequiredArgsConstructor

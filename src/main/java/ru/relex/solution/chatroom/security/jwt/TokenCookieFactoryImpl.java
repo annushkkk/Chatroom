@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class TokenCookieFactoryImpl implements TokenCookieFactory{
-    //conf
+
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenCookieFactoryImpl.class);
 
     private Duration tokenTtl=Duration.ofDays(1);

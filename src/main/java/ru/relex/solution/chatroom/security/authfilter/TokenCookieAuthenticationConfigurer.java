@@ -1,8 +1,6 @@
 package ru.relex.solution.chatroom.security.authfilter;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,27 +17,15 @@ import ru.relex.solution.chatroom.persistence.repository.DeactivatedTokenReposit
 import ru.relex.solution.chatroom.service.model.Token;
 import ru.relex.solution.chatroom.service.model.TokenUser;
 
-import java.util.Date;
 import java.util.function.Function;
 
 public class TokenCookieAuthenticationConfigurer extends AbstractHttpConfigurer<TokenCookieAuthenticationConfigurer, HttpSecurity> {
     private  Function<String, Token> tokenCookieStringDeserializer;
     private DeactivatedTokenRepository deactivatedTokenRepository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(TokenCookieAuthenticationConfigurer.class);
 
     @Override
     public void init(HttpSecurity builder) throws Exception {
-//        builder.logout(logout-> logout.addLogoutHandler(new CookieClearingLogoutHandler("__Host-auth-token"))
-//                .addLogoutHandler(((request, response, authentication) -> {
-//
-//                    if (authentication!=null &&
-//                            authentication.getPrincipal() instanceof Token token){
-//                        deactivatedTokenRepository.create(new DeactivatedToken(token.id(), Date.from(token.expiresAt())));
-//                        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-//                    }
-//                }))
-//                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)));
-        builder.logout(logout -> logout
+       builder.logout(logout -> logout
                 .addLogoutHandler(new CookieClearingLogoutHandler("__Host-auth-token"))
                 .addLogoutHandler((request, response, authentication) -> {
                     if (authentication != null && authentication.getPrincipal() instanceof TokenUser user) {

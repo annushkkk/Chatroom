@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.solution.chatroom.service.logic.VerificationTokenService;
-import ru.relex.solution.chatroom.service.model.VerificationResponse;
+import ru.relex.solution.chatroom.service.model.useraccount.VerificationResponse;
 
 @RestController
 @RequestMapping(path = "/api/tokens")

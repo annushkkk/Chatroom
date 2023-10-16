@@ -1,13 +1,12 @@
-package ru.relex.solution.chatroom.service.model;
+package ru.relex.solution.chatroom.service.model.useraccount.changepassword;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class RegisterResponse {
+public class ChangePasswordResponse {
     String message;
 }

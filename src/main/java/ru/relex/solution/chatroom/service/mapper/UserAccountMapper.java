@@ -1,11 +1,10 @@
 package ru.relex.solution.chatroom.service.mapper;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.relex.solution.chatroom.persistence.entity.UserAccount;
 import ru.relex.solution.chatroom.service.model.Role;
-import ru.relex.solution.chatroom.service.model.UserAccountDto;
-import ru.relex.solution.chatroom.service.model.UserInfo;
+import ru.relex.solution.chatroom.service.model.useraccount.UserAccountDto;
+import ru.relex.solution.chatroom.service.model.useraccount.UserInfo;
 
 import java.util.List;
 

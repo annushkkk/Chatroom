@@ -7,7 +7,7 @@
 ### 4. Подключена PostgreSQL
 ### 5. Есть механизмы защиты от обхода разлогина(фильтрация деактивированных токенов)
 ### 6. Есть API для регистрации, сохраняющий пользователя в хранилище
-### Эндпоинт POST ```/api/users```
+### Эндпоинт  ```POST /api/users```
 Запрос
 ```http request
 POST /api/users
@@ -29,8 +29,11 @@ POST /api/users
 	"message": "You need to confirm your email"
 }
 ```
+Осуществляется проверка на уникальность логина и email:
+- 400 - username уже существует
+- 400 - email уже существует
 ### 7. Есть API, позволяющий изменять базовую информацию профиля, при изменении email есть подтверждение изменения ссылкой на указанный новый email
-### Эндпоинт PUT ```/api/users```
+### Эндпоинт  ```PUT /api/users```
 Запрос
 ```http request
 PUT /api/users
@@ -72,7 +75,7 @@ Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 }
 ```
 ### 9. Есть API, позволяющий завершить текущую сессию и разлогиниться
-### Эндпоинт POST ```/logout```
+### Эндпоинт  ```POST /logout```
 По этому запросу удаляется сессионная cookie и деактивируется токен
 ```http request
 POST /logout
@@ -89,6 +92,62 @@ GET /api/tokens/verify/?token=retertewrtewrtewstte
 ```json
 {
     "message" : "Account has been successfully created"
+}
+```
+### 11. Есть API, позволяющий обновить пароль
+### Эндпоинт  ```PUT /api/users/upd_password```
+Запрос
+```http request
+PUT /api/users/upd_password
+```
+```json
+{
+    
+    "email":"dijix99883@ksyhtc.com",
+    "password":"password123",
+    "newPassword": "newpassword123"
+
+    
+}
+```
+Ответ
+```json
+{
+    "message": "Password successfully updated"
+}
+```
+### 12. Есть API, позволяющий удалить аккаунт пользователя;
+### Эндпоинт ```DELETE /api/users```
+
+Запрос
+```http request
+DELETE /api/users
+```
+Ответ
+```json
+{
+    "message" : "Account successfully deleted"
+}
+```
+### 13. Есть API c возможностью восстановить профиль втечение некоторого времени
+### Эндпоинт  ```POST /api/users/recover_account```
+Запрос
+```http request
+POST /api/users/recover_account
+```
+```json
+{
+
+  "nickname":"useruser",
+  "password":"password123"
+
+    
+}
+```
+Ответ
+```json
+{
+    "message": "Password successfully recovered"
 }
 ```
 
