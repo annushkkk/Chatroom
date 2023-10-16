@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.security.web.csrf.CsrfFilter;
 import ru.relex.solution.chatroom.persistence.entity.DeactivatedToken;
 import ru.relex.solution.chatroom.persistence.repository.DeactivatedTokenRepository;
-import ru.relex.solution.chatroom.service.logic.DeactivatedTokenService;
 import ru.relex.solution.chatroom.service.model.Token;
 import ru.relex.solution.chatroom.service.model.TokenUser;
 

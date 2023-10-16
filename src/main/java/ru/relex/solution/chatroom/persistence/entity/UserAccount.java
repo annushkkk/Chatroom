@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.relex.solution.chatroom.service.model.Role;
 
@@ -13,12 +14,14 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "user_accounts", schema = "chatroom_base")
 public class UserAccount implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String password;
     private String email;

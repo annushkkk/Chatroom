@@ -6,6 +6,7 @@ import ru.relex.solution.chatroom.service.logic.UserAccountService;
 import ru.relex.solution.chatroom.service.model.DeleteResponse;
 import ru.relex.solution.chatroom.service.model.RegisterResponse;
 import ru.relex.solution.chatroom.service.model.UserAccountDto;
+import ru.relex.solution.chatroom.service.model.UserInfo;
 
 @RestController
 @RequestMapping(path = "/api/users")
@@ -22,9 +23,13 @@ public class UserAccountController {
     public DeleteResponse deleteAcc(){
         return service.deleteAcc();
     }
+    @PutMapping
+    public UserInfo update(@RequestBody UserInfo userInfo){
+        return service.update(userInfo);
+    }
+
     @GetMapping
     public String test(){
-
-        return "eeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+        return "test";
     }
 }

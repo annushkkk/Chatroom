@@ -3,7 +3,14 @@ jwt:
 spring:
   application:
     name: chatroom-service
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: emailem@gmail.com
+    password: isdjxozvwvcqczfr
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
   jpa:
     hibernate:
       ddl-auto: create

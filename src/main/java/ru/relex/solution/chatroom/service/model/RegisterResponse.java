@@ -9,4 +9,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class RegisterResponse {
+    String message;
 }

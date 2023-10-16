@@ -1,0 +1,27 @@
+package ru.relex.solution.chatroom.service.model;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import ru.relex.solution.chatroom.service.validation.constraint.EmailUnique;
+import ru.relex.solution.chatroom.service.validation.constraint.NicknameUnique;
+
+import java.util.UUID;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class UserInfo {
+    private UUID id;
+    @NotNull
+    @Email
+    @EmailUnique
+    private String email;
+    @NotNull
+    @NicknameUnique
+    private String nickname;
+    private String firstName;
+    private String lastName;
+}

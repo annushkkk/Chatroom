@@ -8,6 +8,6 @@ import java.util.UUID;
 public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> {
     boolean existsByEmail(String email);
     UserAccount getByNickname(String nickname);
-
     boolean existsByNickname(String nickname);
+    UserAccount getById(UUID uuid);
 }
