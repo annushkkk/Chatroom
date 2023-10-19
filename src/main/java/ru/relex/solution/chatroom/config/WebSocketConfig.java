@@ -1,5 +1,6 @@
 package ru.relex.solution.chatroom.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.converter.MessageConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,8 @@ import java.util.List;
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-
+    @Value("${web-client.url}")
+    private String webClientUrl;
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker( "/user");
@@ -26,9 +28,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+
         registry
                 .addEndpoint("/ws")
-                .setAllowedOriginPatterns("*")
+                .setAllowedOrigins(webClientUrl)
                 .withSockJS();
     }
 

@@ -1,5 +1,3 @@
-jwt:
-  cookie-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
 spring:
   application:
     name: chatroom-service
@@ -13,7 +11,7 @@ spring:
       mail.smtp.starttls.enable: true
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     show-sql: false
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/chatroom}
@@ -32,3 +30,8 @@ server:
 logging:
   level:
     org.springframework.security: TRACE
+
+web-client:
+  url: ${WC_URL:http://localhost:8080}
+jwt:
+  cookie-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'

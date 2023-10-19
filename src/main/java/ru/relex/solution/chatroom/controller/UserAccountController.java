@@ -2,9 +2,11 @@ package ru.relex.solution.chatroom.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.relex.solution.chatroom.service.logic.UserAccountService;
+import ru.relex.solution.chatroom.service.model.TokenUser;
 import ru.relex.solution.chatroom.service.model.useraccount.DeleteResponse;
 import ru.relex.solution.chatroom.service.model.useraccount.RegisterResponse;
 import ru.relex.solution.chatroom.service.model.useraccount.UserAccountDto;
@@ -27,8 +29,9 @@ public class UserAccountController {
         return service.register(userAccountDto);
     }
     @DeleteMapping
-    public DeleteResponse deleteAcc(){
-        return service.deleteAcc();
+    public DeleteResponse deleteAcc(@AuthenticationPrincipal Object principal){
+        TokenUser user= (TokenUser) principal;
+        return service.deleteAcc(user.getUsername());
     }
     @PutMapping
     public UserInfo update(@RequestBody UserInfo userInfo){

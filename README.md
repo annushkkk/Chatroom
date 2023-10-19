@@ -150,4 +150,35 @@ POST /api/users/recover_account
     "message": "Password successfully recovered"
 }
 ```
+### 14. Обмен и просмотр сообщений реализован с помощью веб-сокетов
+SockJS используется для установления соединения с веб-сокет сервером, STOMP используется для отправки и получения сообщений через веб-сокет
+### Эндпоинт  ``` /ws``` открывает wss соединение
 
+### 15. Есть API, позволяющий отправить другому пользователю сообщение, реализована проверка на существование пользователя
+### Эндпоинт  ```/app/chat```
+
+```json
+{
+  "content": "messageText",
+  "senderNickname": "senderNickname" ,
+  "recipientNickname": "recipientNickname",
+  "timestamp": "2023-10-19 08:46:03.556000"
+}
+```
+### Эндпоинт  ```/user/{userId}/queue/messages``` используется для подписки на сообщения
+
+### 16. Есть API, позволяющий просматривать историю сообщений с конкретным пользователем
+### Эндпоинт  ```/app/history```
+
+```json
+{
+
+  "recipientNickname": "recipientNickname",
+  "pageNumber": 0,
+  "pageSize": 2
+
+    
+}
+```
+
+В качестве ответа на ```/user/{senderId}/queue/messages``` приходит массив сообщений, размер которого указан в pageSize

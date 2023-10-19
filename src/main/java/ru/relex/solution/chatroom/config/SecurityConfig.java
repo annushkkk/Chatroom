@@ -17,9 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import ru.relex.solution.chatroom.persistence.repository.DeactivatedTokenRepository;
 import ru.relex.solution.chatroom.persistence.repository.UserAccountRepository;
 import ru.relex.solution.chatroom.security.*;
@@ -27,7 +24,6 @@ import ru.relex.solution.chatroom.security.authfilter.TokenCookieAuthenticationC
 import ru.relex.solution.chatroom.security.jwt.TokenCookieJweStringDeserializer;
 import ru.relex.solution.chatroom.security.jwt.TokenCookieJweStringSerializer;
 
-import java.util.List;
 
 
 @Configuration
@@ -63,7 +59,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
                                 .requestMatchers("/admin").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/api/tokens/verify","/chat","/ws/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/tokens/verify","/chat").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/users","/api/users/recover_account", "/login", "/logout").permitAll()
                                 .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)

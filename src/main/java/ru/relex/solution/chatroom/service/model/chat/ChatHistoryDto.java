@@ -1,19 +1,17 @@
-package ru.relex.solution.chatroom.service.model;
+package ru.relex.solution.chatroom.service.model.chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatMessageDto {
-
-    private String senderNickname;
+public class ChatHistoryDto {
     private String recipientNickname;
-    private String content;
-    private Date timestamp;
+    private Integer pageNumber;
+    private Integer pageSize;
+
 }

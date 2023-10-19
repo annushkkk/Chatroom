@@ -22,7 +22,7 @@ public class TokenCookieAuthenticationConverter implements AuthenticationConvert
                     .map(cookie -> {
                         var token = this.tokenCookieStringDeserializer.apply(cookie.getValue());
                         return new PreAuthenticatedAuthenticationToken(token,cookie.getValue());
-                            }).orElseThrow(null);
+                            }).orElse(null);
         }
         return null;
     }

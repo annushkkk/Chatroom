@@ -11,7 +11,7 @@ import ru.relex.solution.chatroom.service.model.useraccount.recover.RecoverUserA
 
 public interface UserAccountService {
     RegisterResponse register(UserAccountDto userAccountDto);
-    DeleteResponse deleteAcc();
+    DeleteResponse deleteAcc(String nickname);
     UserInfo update(UserInfo userInfo);
     ChangePasswordResponse updatePassword(ChangePasswordRequest request);
     RecoverUserAccResponse recoverUserAcc(RecoverUserAccRequest request);

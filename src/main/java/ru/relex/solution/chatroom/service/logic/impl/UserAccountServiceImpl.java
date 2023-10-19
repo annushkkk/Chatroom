@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.relex.solution.chatroom.persistence.entity.UserAccount;
 import ru.relex.solution.chatroom.persistence.repository.UserAccountRepository;
-import ru.relex.solution.chatroom.security.SecurityService;
 import ru.relex.solution.chatroom.service.event.OnRegistrationCompleteEvent;
 import ru.relex.solution.chatroom.service.logic.UserAccountService;
 import ru.relex.solution.chatroom.service.mapper.UserAccountMapper;
@@ -21,6 +20,7 @@ import ru.relex.solution.chatroom.service.model.useraccount.recover.RecoverUserA
 import ru.relex.solution.chatroom.service.model.useraccount.recover.RecoverUserAccResponse;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,6 @@ public class UserAccountServiceImpl implements UserAccountService {
     private final PasswordEncoder passwordEncoder;
     private final UserAccountRepository userAccountRepository;
     private final ApplicationEventPublisher eventPublisher;
-    private final SecurityService securityService;
     @Override
     public RegisterResponse register(UserAccountDto userAccountDto) {
         UserAccount userAccount=userAccountMapper.toEntity(userAccountDto);
@@ -42,8 +41,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public DeleteResponse deleteAcc() {
-        String nickname= securityService.getNickname();
+    public DeleteResponse deleteAcc(String nickname) {
         UserAccount userAccount=userAccountRepository.getByNickname(nickname);
         userAccount.setActive(false);
         userAccountRepository.save(userAccount);
@@ -56,7 +54,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         String userAccountEmail=userAccount.getEmail();
         UserAccount user= userAccountMapper.toUpdEntity(userInfo,userAccount);
 
-        if (userInfo.getEmail()!=userAccountEmail){
+        if (!Objects.equals(userInfo.getEmail(), userAccountEmail)){
             user.setActive(false);
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user));
         }
