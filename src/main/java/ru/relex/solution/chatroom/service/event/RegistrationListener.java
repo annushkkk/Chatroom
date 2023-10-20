@@ -7,17 +7,15 @@ import org.springframework.lang.NonNull;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 import ru.relex.solution.chatroom.persistence.entity.UserAccount;
 import ru.relex.solution.chatroom.service.logic.VerificationTokenService;
 
 @Component
-@EnableAsync(proxyTargetClass = true)
 @RequiredArgsConstructor
-public class RegistrationListener implements AsyncConfigurer {
-    private final static String ADDRESS = "localhost";
+public class RegistrationListener  {
+    @Value("${server.host}")
+    private String address;
 
     @Value("${server.port}")
     private String port;
@@ -38,7 +36,7 @@ public class RegistrationListener implements AsyncConfigurer {
         String recipientAddress = userAccount.getEmail();
 
         String subject = "Registration Confirmation";
-        String confirmationUrl = "https://%s:%s/api/tokens/verify?token=%s".formatted(ADDRESS, port, verifyToken);
+        String confirmationUrl = "https://%s:%s/api/tokens/verify?token=%s".formatted(address, port, verifyToken);
         String emailMessage = "Link for account activation";
 
         SimpleMailMessage message = new SimpleMailMessage();

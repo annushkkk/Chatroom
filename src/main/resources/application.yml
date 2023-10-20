@@ -21,6 +21,7 @@ server:
   http2:
     enabled: true
   port: 8443
+  host: localhost
   ssl:
     key-store: classpath:keystore.p12
     key-store-password: springboot
@@ -35,3 +36,8 @@ web-client:
   url: ${WC_URL:http://localhost:8080}
 jwt:
   cookie-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
+  token-days-to-live: 1
+user-account:
+  recovery-days: 181
+
+

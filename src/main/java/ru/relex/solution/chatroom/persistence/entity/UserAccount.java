@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.relex.solution.chatroom.service.model.Role;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +30,7 @@ public class UserAccount implements UserDetails {
     private String firstName;
     private String lastName;
     private Boolean active;
+    private Instant deletedAt;
     @Enumerated(EnumType.STRING)
     private List<Role> authorities;
 

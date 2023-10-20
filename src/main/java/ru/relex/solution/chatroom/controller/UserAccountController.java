@@ -19,23 +19,22 @@ import ru.relex.solution.chatroom.service.model.useraccount.recover.RecoverUserA
 @RestController
 @RequestMapping(path = "/api/users")
 @RequiredArgsConstructor
-@Validated
+
 public class UserAccountController {
     private final UserAccountService service;
 
 
     @PostMapping
-    public RegisterResponse register(@RequestBody @Valid UserAccountDto userAccountDto) {
+    public RegisterResponse register(@RequestBody UserAccountDto userAccountDto) {
         return service.register(userAccountDto);
     }
     @DeleteMapping
-    public DeleteResponse deleteAcc(@AuthenticationPrincipal Object principal){
-        TokenUser user= (TokenUser) principal;
-        return service.deleteAcc(user.getUsername());
+    public DeleteResponse deleteAcc(@AuthenticationPrincipal TokenUser principal){
+                return service.deleteAcc(principal.getUsername());
     }
     @PutMapping
-    public UserInfo update(@RequestBody UserInfo userInfo){
-        return service.update(userInfo);
+    public UserInfo update(@AuthenticationPrincipal TokenUser principal,@RequestBody UserInfo userInfo){
+        return service.update(userInfo,principal.getUsername());
     }
     @PutMapping(value ="/upd_password")
     public ChangePasswordResponse updatePassword(@RequestBody ChangePasswordRequest request){

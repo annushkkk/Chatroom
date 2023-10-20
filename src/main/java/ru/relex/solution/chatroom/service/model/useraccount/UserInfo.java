@@ -14,7 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class UserInfo {
-    private UUID id;
     @NotNull
     @Email
     private String email;

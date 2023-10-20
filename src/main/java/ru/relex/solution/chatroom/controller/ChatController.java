@@ -1,5 +1,6 @@
 package ru.relex.solution.chatroom.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -8,6 +9,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import ru.relex.solution.chatroom.persistence.entity.UserAccount;
 import ru.relex.solution.chatroom.persistence.repository.UserAccountRepository;
 import ru.relex.solution.chatroom.service.logic.ChatMessageService;
@@ -16,8 +18,10 @@ import ru.relex.solution.chatroom.service.model.chat.ChatMessageDto;
 
 import java.util.Objects;
 
+
 @AllArgsConstructor
 @Controller
+@Validated
 public class ChatController {
 
     private SimpMessagingTemplate messagingTemplate;
@@ -25,7 +29,7 @@ public class ChatController {
     private UserAccountRepository userAccountRepository;
 
     @MessageMapping("/chat")
-    public void processMessage(@Payload ChatMessageDto chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+    public void processMessage(@Payload @Valid ChatMessageDto chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         Authentication authentication = (Authentication) headerAccessor.getUser();
         if (authentication != null) {
             String nickname = authentication.getName();
@@ -41,7 +45,7 @@ public class ChatController {
     }
 
     @MessageMapping("/history")
-    public void getChatHistory(@Payload ChatHistoryDto chatHistoryDto, SimpMessageHeaderAccessor headerAccessor) {
+    public void getChatHistory(@Payload @Valid ChatHistoryDto chatHistoryDto, SimpMessageHeaderAccessor headerAccessor) {
         Authentication authentication = (Authentication) headerAccessor.getUser();
         if (authentication!=null) {
             String nickname = authentication.getName();

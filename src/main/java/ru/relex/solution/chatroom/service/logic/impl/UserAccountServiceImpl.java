@@ -19,6 +19,7 @@ import ru.relex.solution.chatroom.service.model.useraccount.changepassword.Chang
 import ru.relex.solution.chatroom.service.model.useraccount.recover.RecoverUserAccRequest;
 import ru.relex.solution.chatroom.service.model.useraccount.recover.RecoverUserAccResponse;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,9 +30,10 @@ public class UserAccountServiceImpl implements UserAccountService {
     private final PasswordEncoder passwordEncoder;
     private final UserAccountRepository userAccountRepository;
     private final ApplicationEventPublisher eventPublisher;
+
     @Override
     public RegisterResponse register(UserAccountDto userAccountDto) {
-        UserAccount userAccount=userAccountMapper.toEntity(userAccountDto);
+        UserAccount userAccount = userAccountMapper.toEntity(userAccountDto);
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
         userAccount.setActive(false);
         userAccount.setAuthorities(List.of(Role.USER));
@@ -42,19 +44,24 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public DeleteResponse deleteAcc(String nickname) {
-        UserAccount userAccount=userAccountRepository.getByNickname(nickname);
+        UserAccount userAccount = userAccountRepository.getByNickname(nickname);
         userAccount.setActive(false);
+        userAccount.setDeletedAt(Instant.now());
         userAccountRepository.save(userAccount);
         return new DeleteResponse("Account successfully deleted");
     }
 
     @Override
-    public UserInfo update(UserInfo userInfo) {
-        UserAccount userAccount=userAccountRepository.getById(userInfo.getId());
-        String userAccountEmail=userAccount.getEmail();
-        UserAccount user= userAccountMapper.toUpdEntity(userInfo,userAccount);
-
-        if (!Objects.equals(userInfo.getEmail(), userAccountEmail)){
+    public UserInfo update(UserInfo userInfo, String nickname) {
+        UserAccount userAccount = userAccountRepository.getByNickname(nickname);
+        String userAccountEmail = userAccount.getEmail();
+        UserAccount user = userAccountMapper.toUpdEntity(userInfo, userAccount);
+        if (!Objects.equals(userInfo.getNickname(), nickname) &&
+                userAccountRepository.existsByNickname(userInfo.getNickname())
+        ) {
+            return userInfo;
+        }
+        if (!Objects.equals(userInfo.getEmail(), userAccountEmail)) {
             user.setActive(false);
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user));
         }
@@ -77,14 +84,16 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public RecoverUserAccResponse recoverUserAcc(RecoverUserAccRequest request) {
-        UserAccount user =userAccountRepository.getByNickname(request.getNickname());
+        UserAccount user = userAccountRepository.getByNickname(request.getNickname());
         if (user != null) {
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                 user.setActive(true);
                 userAccountRepository.save(user);
                 return new RecoverUserAccResponse("Account successfully recovered");
             }
+            return new RecoverUserAccResponse("Invalid credentials");
+
         }
-                return new RecoverUserAccResponse("Invalid credentials or recovery time has expired");
+        return new RecoverUserAccResponse("Recovery time has expired");
     }
 }

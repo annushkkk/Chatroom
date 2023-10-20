@@ -34,7 +34,6 @@ public class UserAccountMapper {
          userAccount.setEmail(dto.getEmail());
          userAccount.setFirstName(dto.getFirstName());
          userAccount.setLastName(dto.getLastName());
-         userAccount.setId(dto.getId());
         return userAccount;
     } public UserInfo fromEntity(UserAccount userAccount) {
         if (userAccount == null) {
@@ -46,7 +45,6 @@ public class UserAccountMapper {
                 .email(userAccount.getEmail())
                 .firstName(userAccount.getFirstName())
                 .lastName(userAccount.getLastName())
-                .id(userAccount.getId())
                 .build();
     }
 
