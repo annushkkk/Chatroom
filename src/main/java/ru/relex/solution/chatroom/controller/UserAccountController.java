@@ -1,5 +1,7 @@
 package ru.relex.solution.chatroom.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,27 +25,31 @@ import ru.relex.solution.chatroom.service.model.useraccount.recover.RecoverUserA
 public class UserAccountController {
     private final UserAccountService service;
 
-
     @PostMapping
     public RegisterResponse register(@RequestBody UserAccountDto userAccountDto) {
         return service.register(userAccountDto);
     }
+    @Operation(security = {@SecurityRequirement(name = "token")})
     @DeleteMapping
     public DeleteResponse deleteAcc(@AuthenticationPrincipal TokenUser principal){
                 return service.deleteAcc(principal.getUsername());
     }
+    @Operation(security = {@SecurityRequirement(name = "token")})
     @PutMapping
     public UserInfo update(@AuthenticationPrincipal TokenUser principal,@RequestBody UserInfo userInfo){
         return service.update(userInfo,principal.getUsername());
     }
+    @Operation(security = {@SecurityRequirement(name = "token")})
     @PutMapping(value ="/upd_password")
     public ChangePasswordResponse updatePassword(@RequestBody ChangePasswordRequest request){
         return service.updatePassword(request);
     }
+    @Operation(security = {@SecurityRequirement(name = "token")})
     @PostMapping(value="/recover_account")
     public RecoverUserAccResponse recoverUserAcc(@RequestBody RecoverUserAccRequest request){
         return service.recoverUserAcc(request);
     }
+    @Operation(security = {@SecurityRequirement(name = "token")})
     @GetMapping
     public String test(){
         return "test";

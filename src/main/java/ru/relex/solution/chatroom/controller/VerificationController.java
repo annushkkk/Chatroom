@@ -14,7 +14,6 @@ import ru.relex.solution.chatroom.service.model.useraccount.VerificationResponse
 public class VerificationController {
 
   private final VerificationTokenService service;
-
   @GetMapping("/verify")
   public VerificationResponse verifyEmail(@RequestParam("token") String token) {
     return service.verifyToken(token);
