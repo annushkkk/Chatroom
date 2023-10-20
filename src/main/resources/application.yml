@@ -39,7 +39,6 @@ web-client:
   url: ${WC_URL:http://localhost:8080}
 jwt:
   cookie-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
-  token-days-to-live: 1
 user-account:
   recovery-days: 181
 

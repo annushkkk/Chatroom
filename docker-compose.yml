@@ -1,0 +1,28 @@
+services:
+  chatroom:
+    container_name: chatroom_service
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres_chatroom
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_chatroom:5432/chatroom
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 234678
+    ports:
+      - "8443:8443"
+  postgres_chatroom:
+    image: postgres:15.1
+    container_name: postgres_chatroom
+    environment:
+      POSTGRES_PASSWORD: 234678
+      POSTGRES_USER: postgres
+      POSTGRES_DB: chatroom
+    volumes:
+      - postgres_chatroom:/var/lib/postgresql/data
+    ports:
+      - "8181:5432"
+volumes:
+  postgres_chatroom:
