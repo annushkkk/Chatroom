@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+  - changeSet:
+      id: CHRM-001-202310201004
+      author: anna ushakova
+      comment: init database
+      changes:
+        - sqlFile:
+            path: CHRM-001-202310201004.sql
+            relativeToChangelogFile: true

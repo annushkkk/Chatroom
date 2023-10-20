@@ -1,6 +1,8 @@
 spring:
   application:
     name: chatroom-service
+  liquibase:
+    change-log: classpath:db/migration/v1/changelog.yaml
   mail:
     host: smtp.gmail.com
     port: 587
